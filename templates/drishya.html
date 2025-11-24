@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,9 @@
       overflow-x: hidden;
     }
 
+    /* ... (Keep your existing CSS exactly as it is) ... */
+    /* I am omitting the CSS block here to save space, but keep it in your file! */
+    
     .navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -30,47 +34,24 @@
       transition: transform 0.4s ease-in-out;
     }
 
-    .navbar.navbar-hidden {
-      transform: translateY(-120%);
-    }
+    .navbar.navbar-hidden { transform: translateY(-120%); }
 
-    .navbar .logo {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+    .navbar .logo { position: absolute; left: 50%; transform: translateX(-50%); }
     .navbar .logo img {
-      margin-top: 90px;
-      height: 140px;
-      width: auto;
+      margin-top: 90px; height: 140px; width: auto;
       transition: opacity 0.3s ease, height 0.4s ease, margin-top 0.4s ease;
     }
     
-    .navbar.navbar-hidden .logo img {
-      opacity: 0;
-      height: 0;
-      margin-top: 0;
-    }
+    .navbar.navbar-hidden .logo img { opacity: 0; height: 0; margin-top: 0; }
 
-    .navbar .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-      margin-left: auto;
-    }
+    .navbar .nav-links { list-style: none; display: flex; gap: 2rem; margin-left: auto; }
 
     .navbar .nav-links li a {
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 1.2rem;
-      color: #e5e7eb;
-      transition: color 0.3s;
+      font-weight: bold; text-decoration: none; font-size: 1.2rem; color: #e5e7eb; transition: color 0.3s;
     }
 
-    .navbar .nav-links li a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
-    }
+    .navbar .nav-links li a:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 215, 0, 0.8); }
+    
     footer {
       background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
       padding: 3rem 2rem; color: #aaa; text-align: center;
@@ -83,228 +64,110 @@
     }
     
     footer p { font-size: 1rem; margin-bottom: 0.8rem; }
-    
     footer .footer-links { margin: 1rem 0; }
-    
     footer .footer-links a {
       color: #ffee90; text-decoration: none; margin: 0 15px;
       font-size: 1rem; transition: all 0.3s;
     }
-
-    footer .footer-links a:hover {
-      color: #fff; text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
-    }
-
+    footer .footer-links a:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 215, 0, 0.8); }
     footer .copyright { margin-top: 1.5rem; font-size: 0.85rem; color: #888; }
 
-
-    /* --- Page Specific Styles --- */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 2rem;
-      position: relative;
-      background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 60%);
-    }
-
-    .hero-logo {
-      width: 250px;
-      height: 250px;
-      margin-bottom: 1rem;
-    }
-    
-    .hero h1 {
-      font-size: 4rem;
-      font-weight: 700;
-      color: #ffd700;
-      margin-bottom: 0.5rem;
-    }
-    
-    .hero .tagline {
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: #ccc;
-      max-width: 600px;
-    }
-
-    .scroll-down-indicator {
-      position: absolute;
-      bottom: 30px;
-      font-size: 0.9rem;
-      color: #ffd700;
-      animation: bounce 2s infinite;
-    }
-    
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-
-    .story-container {
-      max-width: 1100px;
-      margin: 5rem auto;
-      padding: 2rem;
-    }
-
-    .story-section {
-      display: flex;
-      gap: 3rem;
-      align-items: center;
-      margin-bottom: 8rem;
-      opacity: 0; /* Initial state for GSAP animation */
-      transform: translateY(60px); /* Initial state for GSAP animation */
-    }
-
-    .story-section.reverse {
-      flex-direction: row-reverse;
-    }
-
-    .story-visual {
-      flex-basis: 45%;
-      background: #111;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      padding: 1rem;
-    }
-
-    .story-visual img {
-      width: 100%;
-      border-radius: 8px;
-      display: block;
-    }
-
-    .story-content {
-      flex-basis: 55%;
-    }
-
-    .story-section h2 {
-      font-size: 2.5rem;
-      color: #ffd700;
-      margin-bottom: 1rem;
-    }
-
-    .story-section p {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      color: #ccc;
-    }
-    
+    /* Copy the rest of your CSS here... */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 2rem; position: relative; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 60%); }
+    .hero-logo { width: 250px; height: 250px; margin-bottom: 1rem; }
+    .hero h1 { font-size: 4rem; font-weight: 700; color: #ffd700; margin-bottom: 0.5rem; }
+    .hero .tagline { font-size: 1.5rem; font-weight: 300; color: #ccc; max-width: 600px; }
+    .scroll-down-indicator { position: absolute; bottom: 30px; font-size: 0.9rem; color: #ffd700; animation: bounce 2s infinite; }
+    @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+    .story-container { max-width: 1100px; margin: 5rem auto; padding: 2rem; }
+    .story-section { display: flex; gap: 3rem; align-items: center; margin-bottom: 8rem; opacity: 0; transform: translateY(60px); }
+    .story-section.reverse { flex-direction: row-reverse; }
+    .story-visual { flex-basis: 45%; background: #111; border-radius: 12px; border: 1px solid rgba(255, 215, 0, 0.2); padding: 1rem; }
+    .story-visual img { width: 100%; border-radius: 8px; display: block; }
+    .story-content { flex-basis: 55%; }
+    .story-section h2 { font-size: 2.5rem; color: #ffd700; margin-bottom: 1rem; }
+    .story-section p { font-size: 1.1rem; line-height: 1.7; color: #ccc; }
     .team-section { text-align: center; padding: 4rem 2rem; }
-    
-    .team-section h1 {
-        font-size: 3rem;
-        margin-bottom: 3rem;
-        background: linear-gradient(90deg, #faeda2, #ffd700);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    .team-grid {
-      display: flex; justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-    }
-
-    .team-card {
-      background: #111; padding: 25px; border-radius: 12px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-      width: 300px;
-      height: 360px;
-    }
-    
-    .team-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-    }
-
-    .team-card img {
-      width: 200px; 
-      height: 200px; 
-      border-radius: 50%; object-fit: cover;
-      margin-bottom: 15px; border: 3px solid #ffd700;
-    }
-
+    .team-section h1 { font-size: 3rem; margin-bottom: 3rem; background: linear-gradient(90deg, #faeda2, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .team-grid { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+    .team-card { background: #111; padding: 25px; border-radius: 12px; border: 1px solid rgba(255, 215, 0, 0.2); transition: transform 0.3s, box-shadow 0.3s; width: 300px; height: 360px; }
+    .team-card:hover { transform: translateY(-8px); box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); }
+    .team-card img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid #ffd700; }
     .team-card h3 { margin: 10px 0 5px; font-size: 22px; color: #ffd700; }
     .team-card p { font-size: 17px; color: #ccc; }
-
-    @media (max-width: 768px) {
-        .hero h1 { font-size: 3rem; }
-        .hero .tagline { font-size: 1.2rem; }
-        .story-section, .story-section.reverse {
-          flex-direction: column;
-          gap: 2rem;
-        }
-    }
+    @media (max-width: 768px) { .hero h1 { font-size: 3rem; } .hero .tagline { font-size: 1.2rem; } .story-section, .story-section.reverse { flex-direction: column; gap: 2rem; } }
   </style>
 </head>
 <body>
 
   <nav class="navbar">
-    <div class="logo"><img src="logos/mg.png" alt="MANAGENIUS Logo"></div>
+    <div class="logo"><img src="{% static 'logos/mg.png' %}" alt="MANAGENIUS Logo"></div>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="team.html">Team</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="loginSignup.html">Login / Sign up</a></li>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'team' %}">Team</a></li>
+      <li><a href="{% url 'events' %}">Events</a></li>
+      {% if user.is_authenticated %}
+        <li><span style="color: #ffd700; margin-right: 15px;">Hi, {{ user.first_name }}</span></li>
+        <li>
+             <form action="{% url 'account_logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="background:none; border:none; color:#e5e7eb; font-weight:bold; font-size:1.2rem; cursor:pointer; font-family:inherit;">Logout</button>
+             </form>
+        </li>
+      {% else %}
+        <li><a href="{% url 'account_login' %}">Login / Sign up</a></li>
+      {% endif %}
     </ul>
     <div class="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
+      <div></div><div></div><div></div>
     </div>
   </nav>
 
   <section class="hero">
-    <img src="logos/drishya.png" alt="Drishya Logo" class="hero-logo">
+    <img src="{% static 'logos/drishya.png' %}" alt="Drishya Logo" class="hero-logo">
     <h1 class="hero-title">DRISHYA</h1>
     <p class="tagline">Visualizing Ideas, Crafting Experiences. We don't just design, we give vision a digital life.</p>
     <div class="scroll-down-indicator">Scroll to begin our story ▼</div>
   </section>
 
   <div class="story-container">
-    
     <div class="story-section" id="ideation">
       <div class="story-visual">
-        <img src="https://media1.tenor.com/m/ozdQSPWnkdIAAAAC/thinking-tap.gif" alt="Animated GIF about brainstorming and ideation">
+        <img src="https://media1.tenor.com/m/ozdQSPWnkdIAAAAC/thinking-tap.gif" alt="Ideation GIF">
       </div>
       <div class="story-content">
         <h2>Imagining the Form</h2>
-        <p>Every pixel has a purpose. Our process starts with imagination, translating raw ideas into visual concepts through brainstorming, sketches, and mood boards. This is where we lay the creative foundation for every project.</p>
+        <p>Every pixel has a purpose. Our process starts with imagination, translating raw ideas into visual concepts through brainstorming, sketches, and mood boards.</p>
       </div>
     </div>
     
     <div class="story-section reverse" id="design">
        <div class="story-visual">
-        <img src="https://media1.tenor.com/m/NXy6rPZ9rhoAAAAC/beautiful-aesthetic-grady-smith.gif" alt="Animated GIF showing design tools and aesthetics">
+        <img src="https://media1.tenor.com/m/NXy6rPZ9rhoAAAAC/beautiful-aesthetic-grady-smith.gif" alt="Design GIF">
       </div>
       <div class="story-content">
         <h2>Crafting Visual Identity</h2>
-        <p>We are the visual storytellers. With a keen eye for aesthetics, typography, and color, we design everything from stunning event posters to a cohesive brand identity. We ensure MANAGENIUS not only looks good but communicates with clarity and impact.</p>
+        <p>We are the visual storytellers. With a keen eye for aesthetics, typography, and color, we design everything from stunning event posters to a cohesive brand identity.</p>
       </div>
     </div>
 
     <div class="story-section" id="development">
        <div class="story-visual">
-         <img src="https://media1.tenor.com/m/PuQpMLM0PwwAAAAd/cat-work-in-progress.gif" alt="Animated GIF about coding and web development">
+         <img src="https://media1.tenor.com/m/PuQpMLM0PwwAAAAd/cat-work-in-progress.gif" alt="Dev GIF">
       </div>
       <div class="story-content">
         <h2>Building Digital Worlds</h2>
-        <p>Our canvas is the screen. We architect seamless user experiences (UX) and intuitive user interfaces (UI), bringing them to life with clean, efficient code. We build the digital platforms that connect our community.</p>
+        <p>Our canvas is the screen. We architect seamless user experiences (UX) and intuitive user interfaces (UI), bringing them to life with clean, efficient code.</p>
       </div>
     </div>
 
     <div class="story-section reverse" id="polish">
        <div class="story-visual">
-         <img src="https://media1.tenor.com/m/GlSFlD_s6K8AAAAC/cirage-bfmtv.gif" alt="Animated GIF showing refinement and polishing of a product">
+         <img src="https://media1.tenor.com/m/GlSFlD_s6K8AAAAC/cirage-bfmtv.gif" alt="Polish GIF">
       </div>
       <div class="story-content">
         <h2>Refining the Experience</h2>
-        <p>Our work is never truly done. We constantly refine and polish, gathering feedback and testing our creations to ensure they are not just beautiful but also functional and flawless. Perfection is a process, and we are dedicated to it.</p>
+        <p>Our work is never truly done. We constantly refine and polish, gathering feedback and testing our creations to ensure they are not just beautiful but also functional.</p>
       </div>
     </div>
   </div>
@@ -313,11 +176,11 @@
     <h1>Meet the Design & Web Leadership</h1>
     <div class="team-grid">
       <div class="team-card">
-        <img src="team/jasnam.png" alt="Jasnam Kaur">
+        <img src="{% static 'team/jasnam.png' %}" alt="Jasnam Kaur">
         <h3>Jasnam Kaur</h3><p>Head</p>
       </div>
       <div class="team-card">
-        <img src="team/dembla.jpg" alt="Vedaant Dembla">
+        <img src="{% static 'team/dembla.jpg' %}" alt="Vedaant Dembla">
         <h3>Vedaant Dembla</h3><p>Co-Head</p>
       </div>
     </div>
@@ -328,9 +191,9 @@
       <h3>MANAGENIUS</h3>
       <p>Management Club of IITM — Inspiring Leaders, Innovating Futures</p>
       <div class="footer-links">
-        <a href="index.html">Home</a> | 
-        <a href="team.html">Our Team</a> | 
-        <a href="events.html">Events</a>
+        <a href="{% url 'home' %}">Home</a> | 
+        <a href="{% url 'team' %}">Our Team</a> | 
+        <a href="{% url 'events' %}">Events</a>
       </div>
       <p class="copyright">&copy; 2025 MANAGENIUS. All Rights Reserved.</p>
     </div>

@@ -57,3 +57,14 @@ def treasuretrack_register(request):
     return render(request, 'treasuretrackregister.html')
 def productremix_register(request):
     return render(request, 'productremixregister.html')
+def drishya(request):
+    return render(request, 'drishya.html')
+
+def fintellect(request):
+    return render(request, 'fintellect.html')
+
+def marquest(request):
+    return render(request, 'marquest.html')
+
+def unnati(request):
+    return render(request, 'unnati.html')

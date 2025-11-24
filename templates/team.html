@@ -331,7 +331,7 @@
 
   <nav class="navbar">
     <div class="logo"><img src="{% static 'logos/mg.png' %}" alt="MANAGENIUS Logo"></div>
-<ul class="nav-links">
+    <ul class="nav-links">
       <li><a href="{% url 'home' %}">Home</a></li>
       <li><a href="{% url 'about' %}">About Us</a></li>
       <li><a href="{% url 'team' %}">Team</a></li>
@@ -358,25 +358,25 @@
   <section>
     <h1>Our Departments</h1>
     <div class="departments-grid">
-      <a href="unnati.html" class="dept-link">
+      <a href="{% url 'unnati' %}" class="dept-link">
         <div class="dept-card">
           <img src="{% static 'logos/unnati.png' %}" alt="Unnati Logo">
           <h3>UNNATI <br><small>HR Department</small></h3>
         </div>
       </a>
-      <a href="marquest.html" class="dept-link">
+      <a href="{% url 'marquest' %}" class="dept-link">
         <div class="dept-card">
           <img src="{% static 'logos/marquest.png' %}" alt="Marquest Logo">
           <h3>MARQUEST <br><small>Marketing Department</small></h3>
         </div>
       </a>
-      <a href="fintellect.html" class="dept-link">
+      <a href="{% url 'fintellect' %}" class="dept-link">
         <div class="dept-card">
           <img src="{% static 'logos/fintellect.png' %}" alt="Fintellect Logo">
           <h3>FINTELLECT <br><small>Finance Department</small></h3>
         </div>
       </a>
-      <a href="drishya.html" class="dept-link">
+      <a href="{% url 'drishya' %}" class="dept-link">
         <div class="dept-card">
           <img src="{% static 'logos/drishya.png' %}" alt="Drishya Logo">
           <h3>DRISHYA <br><small>Design Department</small></h3>
@@ -452,9 +452,9 @@
       <h3>MANAGENIUS</h3>
       <p>Management Club of IITM — Inspiring Leaders, Innovating Futures</p>
       <div class="footer-links">
-        <a href="index.html">Home</a> | 
-        <a href="about.html">About Us</a> | 
-        <a href="events.html">Events</a>
+        <a href="{% url 'home' %}">Home</a> | 
+        <a href="{% url 'about' %}">About Us</a> | 
+        <a href="{% url 'events' %}">Events</a>
       </div>
       <p class="copyright">&copy; 2025 MANAGENIUS. All Rights Reserved.</p>
     </div>
@@ -501,8 +501,6 @@
           }
         })
     })
-
-
 
     gsap.utils.toArray(".team-card").forEach((card, i) => {
       gsap.fromTo(card, 

@@ -1,7 +1,16 @@
 from django.contrib import admin
 from django.urls import path, include
 # CHECK THIS IMPORT LINE:
-from accounts.views import home, about, team, events, management_sapiens, select, madteam, contact, auction, product_remix, thinksink, brandplay, madmoments, treasuretrack, auction_register, brandplay_register, madmoments_register, thinksink_register, treasuretrack_register, productremix_register
+# Update imports
+from accounts.views import (
+    home, about, team, events, management_sapiens, select, madteam, contact,
+    auction, product_remix, thinksink, brandplay, madmoments, treasuretrack,
+    auction_register, productremix_register, thinksink_register, treasuretrack_register,
+    brandplay_register, madmoments_register,
+    # NEW IMPORTS:
+    drishya, fintellect, marquest, unnati
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +38,8 @@ urlpatterns = [
     path('thinksink/register/', thinksink_register, name='thinksink_register'),
     path('treasuretrack/register/', treasuretrack_register, name='treasuretrack_register'),
     path('product-remix/register/', productremix_register, name='productremix_register'),
+    path('drishya/', drishya, name='drishya'),
+    path('fintellect/', fintellect, name='fintellect'),
+    path('marquest/', marquest, name='marquest'),
+    path('unnati/', unnati, name='unnati'),
 ]
