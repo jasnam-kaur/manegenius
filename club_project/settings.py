@@ -139,10 +139,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
+
 STATIC_URL = 'static/'
+
+# 1. TELL DJANGO WHERE TO LOOK FOR YOUR FILES (Local)
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+# 2. TELL DJANGO WHERE TO COLLECT THEM FOR PRODUCTION (The Fix!)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# 3. ENABLE WHITENOISE (To serve files on Render)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
