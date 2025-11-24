@@ -1,0 +1,413 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Management Sapiens | Events</title>
+
+<style>
+    @font-face {
+       font-family: 'Yourmate';
+       /* CHANGE THIS LINE: Use the Django static tag */
+       src: url("{% static 'font/Yourmate.ttf' %}") format('truetype');
+       font-weight: normal;
+       font-style: normal;
+     }
+  </style>
+      <link rel="stylesheet" href="{% static 'css/madhouse.css' %}" />
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <style>
+      html.lenis {
+        height: auto;
+      }
+      .lenis.lenis-smooth {
+        scroll-behavior: auto;
+      }
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+      .lenis.lenis-scrolling iframe {
+        pointer-events: none;
+      }
+    </style>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        overflow-x: hidden;
+        color: white;
+      }
+
+      .bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+        filter: blur(4px) brightness(0.5);
+      }
+
+      .bg-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("src/pp.png") center/cover no-repeat;
+        opacity: 0.3;
+        z-index: -1;
+      }
+
+      .gradient {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(165, 94, 234, 0.4),
+          rgba(72, 219, 251, 0.4),
+          rgba(255, 118, 117, 0.4)
+        );
+        z-index: -1;
+      }
+
+      nav {
+        font-family: "yourmate";
+        letter-spacing: 1px;
+        font-size: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.05);
+        z-index: 10;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        font-weight: bolder;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: #f4e48b;
+      }
+
+      .heading {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        font-family: "Yourmate", sans-serif;
+        font-size: 3.5rem;
+        padding-top: 120px;
+        margin-bottom: 40px;
+        letter-spacing: 1.5px;
+      }
+
+      .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        padding: 0 10%;
+        margin-bottom: 80px;
+      }
+
+      .event-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+      .events-grid a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .event-img {
+        width: 100%;
+        height: 200px;
+        border-radius: 15px;
+        object-fit: cover;
+        margin-bottom: 15px;
+      }
+      .event-title {
+        font-family: "Yourmate", sans-serif;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+      .event-desc {
+        font-size: 0.95rem;
+        opacity: 0.8;
+        line-height: 1.5;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 11;
+      }
+
+      .hamburger span {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        border-radius: 5px;
+        transition: all 0.3s linear;
+        transform-origin: 1px;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+
+      @media (max-width: 768px) {
+        .heading {
+          font-size: 2.5rem;
+        }
+        .events-grid {
+          padding: 0 5%;
+        }
+        nav {
+          padding: 20px;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          height: 100vh;
+          width: 60%;
+          max-width: 300px;
+          background: rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(20px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          transition: right 0.4s ease-in-out;
+        }
+        .nav-links.active {
+          right: 0;
+        }
+        .nav-links a {
+          margin: 15px 0;
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+ <video autoplay muted loop class="bg-video">
+   <source src="{% static 'src/bg.mp4' %}" type="video/mp4" />
+</video>
+    <div class="bg-overlay"></div>
+    <div class="gradient"></div>
+
+    <nav class="navbar">
+      <ul>
+        <li><a href="{% url 'home' %}">Main Page</a></li>
+
+        <li><a href="{%url "management_sapiens"%}">Home</a></li>
+
+        <li><a href="{% url 'select' %}">Sub-Events</a></li>
+
+        <li><a href="{% url 'madteam' %}">Team</a></li>
+
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+
+        {% if user.is_authenticated %}
+        <li>
+          <span style="color: #f4e48b; margin-right: 15px"
+            >Hi, {{ user.first_name }}</span
+          >
+        </li>
+        <li>
+          <form
+            action="{% url 'account_logout' %}"
+            method="post"
+            style="display: inline"
+          >
+            {% csrf_token %}
+            <button
+              type="submit"
+              style="
+                background: none;
+                border: none;
+                color: white;
+                font-size: 20px;
+                font-weight: 200;
+                font-family: 'Yourmate', cursive;
+                cursor: pointer;
+              "
+            >
+              Logout
+            </button>
+          </form>
+        </li>
+        {% else %}
+        <li><a href="{% url 'account_login' %}">Login signup</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <h1 class="heading" data-aos="fade-up" style="letter-spacing: 1.5px">
+      Explore Our Events
+    </h1>
+    <br />
+    <div class="events-grid">
+      <a
+        href="{% url 'auction' %}"
+        class="event-card"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <img
+          src="{% static 'src/apl.JPEG' %}"
+          alt="Event 1"
+          class="event-img"
+        />
+        <div class="event-title">Auction Premier League</div>
+        <div class="event-desc">Cricket auction</div>
+      </a>
+
+      <a
+        href="{% url 'product_remix' %}"
+        class="event-card"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <img
+          src="{% static 'src/product.png' %}"
+          alt="Event 2"
+          class="event-img"
+        />
+        <div class="event-title">Product Remix</div>
+        <div class="event-desc">
+          A vibrant display of talent featuring brands.
+        </div>
+      </a>
+
+      <a
+        href="{% url 'thinksink' %}"
+        class="event-card"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <img
+          src="{% static 'src/think.PNG' %}"
+          alt="Event 3"
+          class="event-img"
+        />
+        <div class="event-title">Think or Sink</div>
+        <div class="event-desc">Company Debate</div>
+      </a>
+
+      <a
+        href="{% url 'brandplay' %}"
+        class="event-card"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <img
+          src="{% static 'src/brand.png' %}"
+          alt="Event 4"
+          class="event-img"
+        />
+        <div class="event-title">BrandPlay</div>
+        <div class="event-desc">Digital Marketing event</div>
+      </a>
+
+      <a
+        href="{% url 'madmoments' %}"
+        class="event-card"
+        data-aos="fade-up"
+        data-aos-delay="500"
+      >
+        <img
+          src="{% static 'src/madmoments.PNG' %}"
+          alt="Event 5"
+          class="event-img"
+        />
+        <div class="event-title">MAD Moments</div>
+        <div class="event-desc">Photography & videography</div>
+      </a>
+
+      <a
+        href="{% url 'treasuretrack' %}"
+        class="event-card"
+        data-aos="fade-up"
+        data-aos-delay="600"
+      >
+        <img
+          src="{% static 'src/treasure.JPEG' %}"
+          alt="Event 6"
+          class="event-img"
+        />
+        <div class="event-title">Treasure Track</div>
+        <div class="event-desc">Treasure Hunt</div>
+      </a>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script>
+      AOS.init({ duration: 1000, once: true });
+
+      const lenis = new Lenis();
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // Hamburger Menu Script
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        hamburger.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>

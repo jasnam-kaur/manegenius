@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MANAGEMENT SAPIENS</title>
+
+
+
+    <script src="https://unpkg.com/@studio-freight/lenis@latest/dist/lenis.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/madhouse.css' %}" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Background Video -->
+      <video id="myVideo" autoplay muted loop playsinline>
+        <source src="{% static 'src/bg.mp4' %}" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Main Title -->
+      <div class="title-text">
+        <span class="mad">Management</span><span class="house">Sapiens</span>
+      </div>
+
+      <!-- Navigation Bar -->
+<nav class="navbar">
+  <ul>
+    <li><a href="{% url 'home' %}">Main Page</a></li>
+    
+    <li><a style="color: #f4e48b" href="#">Home</a></li>
+    
+    <li><a href="{% url 'select' %}">Sub-Events</a></li>
+    
+    <li><a href="{% url 'madteam' %}">Team</a></li>
+    
+    <li><a href="{% url 'contact' %}">Contact</a></li>
+    
+    {% if user.is_authenticated %}
+       <li>
+           <span style="color: #f4e48b; margin-right: 15px;">Hi, {{ user.first_name }}</span>
+       </li>
+       <li>
+           <form action="{% url 'account_logout' %}" method="post" style="display:inline;">
+               {% csrf_token %}
+               <button type="submit" style="background:none; border:none; color:white; font-size: 20px; font-weight: 200; font-family: 'Yourmate', cursive; cursor:pointer;">Logout</button>
+           </form>
+       </li>
+    {% else %}
+       <li><a href="{% url 'account_login' %}">Login signup</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+      <img
+        src="{% static 'src/pp.png' %}"
+        alt="Centered PNG with Fade"
+        class="center-png"
+      />
+
+      <div class="gradient-fade-bottom"></div>
+    </div>
+
+    <section class="next-section">
+      <h2>Welcome to the Management Sapiens</h2>
+      <p
+        style="
+          max-width: 900px;
+          margin: 30px auto;
+          font-size: 25px;
+          font-weight: 100px;
+          color: #333;
+        "
+      >
+        <strong>Where Madness Meets Management</strong><br /><br />
+        Step into a world where logic dances with creativity, strategy meets
+        spontaneity, and business becomes a thrilling playground.
+        <strong>Management Sapiens</strong>, the flagship event of our
+        Management Club, is not your typical fest—it's a high-energy carnival of
+        minds, ideas, and madness!<br /><br />
+
+        From <strong style="color: #e0aa05">Cricket Auctions</strong> that test
+        your analytical nerve and budget skills, to
+        <strong style="color: #e0aa05">Capture the Event</strong>, where your
+        storytelling meets strategy and vision—every corner of the Management
+        Sapiens is designed to challenge and excite.<br /><br />
+
+        Get your competitive spirit rolling in a
+        <strong style="color: #e0aa05">Digital Marketing</strong>, where brands
+        are reimagined and campaigns come alive. Hunt for glory (and clues) in a
+        gripping <strong style="color: #e0aa05">Treasure Hunt</strong>, tackle
+        tough industry truths in the
+        <strong style="color: #e0aa05">Company Debate</strong>, and stretch your
+        innovation muscles in the
+        <strong style="color: #e0aa05">Product Redesign Challenge</strong
+        >.<br /><br />
+
+        Whether you're a strategist, a speaker, a creative, or just someone who
+        thrives in chaos—<strong>Management Sapiens is your arena.</strong
+        ><br /><br />
+
+        <em style="color: #e0aa05; margin-bottom: 0px"
+          >Think Mad. Manage Smart.</em
+        >
+      </p>
+    </section>
+
+    <section class="mad-section">
+      <h1 class="mad-title" style="margin-bottom: 50px; margin-top: 0px">
+        <span>M</span> <span>.</span> <span>A</span> <span>.</span>
+        <span>D</span>
+      </h1>
+      <h2
+        class="mad-subtitle"
+        style="font-size: 50px; margin-bottom: 50px; letter-spacing: 2px"
+      >
+        Marketing . Auction . Designing
+      </h2>
+      <p class="mad-tagline" style="font-size: 30px">
+        <i>" From Ideas to Impact "</i>
+      </p>
+      <br /><br />
+      <br /><br /><br />
+      <footer
+        class="footer-section"
+        style="font-family: Arial, Helvetica, sans-serif"
+      >
+        <p>
+          <b style="font-size: 20px"
+            >Made with ❤ by Drishya ~ the Design Club</b
+          >
+        </p>
+      </footer>
+    </section>
+
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>

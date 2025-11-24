@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Events | MANAGENIUS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .navbar.navbar-hidden {
+            transform: translateY(-120%);
+        }
+
+        .navbar .logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .navbar .logo img {
+            margin-top: 90px;
+            height: 140px;
+            width: auto;
+            transition: opacity 0.3s ease, height 0.4s ease, margin-top 0.4s ease;
+        }
+
+        .navbar.navbar-hidden .logo img {
+            opacity: 0;
+            height: 0;
+            margin-top: 0;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin-left: auto;
+        }
+
+        .navbar .nav-links li a {
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #e5e7eb;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links li a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        section {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #faeda2, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        section>p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            background: #111;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(40px);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: 50% 20%;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .event-card h3 {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-card .event-date {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-card .event-description {
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-card .btn-register {
+            display: inline-block;
+            padding: 10px 30px;
+            background: transparent;
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            text-decoration: none;
+            border-radius: 6px;
+            text-align: center;
+            transition: background 0.3s, color 0.3s;
+            font-weight: bold;
+            max-width: fit-content;
+            margin: 0 auto;
+        }
+
+        .event-card .btn-register:hover {
+            background: #ffd700;
+            color: #111;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .event-card.past .btn-register {
+            background-color: #333;
+            border-color: #555;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        .event-card.past .btn-register:hover {
+            background-color: #333;
+            color: #888;
+            box-shadow: none;
+        }
+
+        .events-group {
+            margin: 3rem 0;
+        }
+
+        .events-group h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: #ffd700;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        footer {
+            background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+            padding: 3rem 2rem;
+            color: #aaa;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            animation: pulse 6s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        footer h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #faeda2, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        footer p {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        footer .footer-links {
+            margin: 1rem 0;
+        }
+
+        footer .footer-links a {
+            color: #ffee90;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        footer .footer-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+        }
+
+        footer .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+                justify-content: center;
+            }
+
+            .navbar .logo img {
+                height: 120px;
+                margin-top: 80px;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                width: 60%;
+                background: #0a0a0a;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: transform 0.4s ease-in-out;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links.nav-active {
+                transform: translateX(0%);
+            }
+
+            .hamburger {
+                display: block;
+                position: fixed;
+                right: 1.5rem;
+                top: 1.5rem;
+            }
+
+            section {
+                padding-top: 6rem;
+            }
+
+            section h1 {
+                font-size: 2.5rem;
+            }
+
+            section>p {
+                font-size: 1rem;
+            }
+
+            .events-group h2 {
+                font-size: 1.8rem;
+            }
+
+            .event-card.past img {
+                object-fit: contain;
+                background-color: #000;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo"><img src="{% static 'logos/mg.png' %}" alt="MANAGENIUS Logo"></div>
+<ul class="nav-links">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About Us</a></li>
+      <li><a href="{% url 'team' %}">Team</a></li>
+      <li><a href="{% url 'events' %}">Events</a></li>
+      
+      {% if user.is_authenticated %}
+        <li><span style="color: #ffd700;">Hi, {{ user.first_name }}</span></li>
+        <li>
+             <form action="{% url 'account_logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="background:none; border:none; color:#e5e7eb; cursor:pointer;">Logout</button>
+             </form>
+        </li>
+      {% else %}
+        <li><a href="{% url 'account_login' %}">Login / Sign up</a></li>
+      {% endif %}
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+    <section>
+        <h1>Our Events</h1>
+        <p>Explore our lineup of exciting events designed to foster innovation, leadership, and professional growth.
+            From insightful workshops to large-scale conclaves, there's always something happening at MANAGENIUS.</p>
+
+        <div class="events-group">
+            <h2>Upcoming Events</h2>
+            <div class="events-grid" >
+                <div class="event-card">
+                    <img src="{% static 'src/fantasy-art-digital-art-house-trees-wallpaper.jpg' %}" alt="Event Image">
+                    <h3>Management Sapiens</h3>
+                    <p class="event-date">October 20, 2025 (Tentative) | 9:30 AM - 3:00 PM</p>
+                    <p class="event-description">Where madness meets Marketing, Auction and Designing.</p>
+                    <a href="{% url 'management_sapiens' %}" class="btn-register">Registerations Opening Soon !</a>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="events-group">
+            <h2>A Glimpse Into Our Past Events</h2>
+            <div class="events-grid">
+                <div class="event-card past">
+                    <img src="{% static 'src/ms.png'%}" alt="Past Event Image">
+                    <h3>Case Study x Management Sapiens</h3>
+                    <p class="event-date">March, 2024</p>
+                    <p class="event-description">The Management Club of IITM is a student-led forum designed to bridge
+                        the gap between academic
+                        theory and real-world application. Through a diverse range of activities such as industry
+                        visits, seminars,
+                        case-study competitions, and expert lectures, the club provides students with invaluable
+                        opportunities to develop essential managerial and administrative skills. These programs are
+                        specifically structured to enhance abilities in organizing, coordinating, and decision-making,
+                        thoroughly preparing members for the rigors of the professional world.</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="events-grid">
+                <div class="event-card past">
+                    <img src="{% static 'src/Qubit.png'%}" alt="Past Event Image">
+                    <h3>Qubit</h3>
+                    <p class="event-date">February, 2024</p>
+                    <p class="event-description">As the Management Club of IITM, we proudly present QUBIT (Quest to
+                        Unleash Business Insights and Talents),
+                        our premier business fest designed to forge future leaders through the lens of commerce.
+                        We've curated a dynamic blend of innovation and teamwork, with events covering marketing,
+                        finance, and sales to provide a
+                        comprehensive learning experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <h3>MANAGENIUS</h3>
+            <p>Management Club of IITM — Inspiring Leaders, Innovating Futures</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a> |
+                <a href="about.html">About Us</a> |
+                <a href="team.html">Team</a>
+            </div>
+            <p class="copyright">&copy; 2025 MANAGENIUS. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/@studio-freight/lenis"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        gsap.registerPlugin(ScrollTrigger)
+
+        gsap.utils.toArray("section h1, section > p, .events-group h2").forEach((el) => {
+            gsap.fromTo(el,
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1, y: 0, duration: 1,
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%"
+                    }
+                })
+        })
+
+        gsap.utils.toArray(".event-card").forEach((card, i) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1, y: 0, duration: 0.8, delay: (i % 3) * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 90%"
+                    }
+                })
+        });
+
+        const nav = document.querySelector('.navbar');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            if (lastScrollY < window.scrollY && window.scrollY > 150) {
+                nav.classList.add('navbar-hidden');
+            } else {
+                nav.classList.remove('navbar-hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+        });
+    </script>
+</body>
+
+</html>

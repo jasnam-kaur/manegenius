@@ -1,0 +1,370 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | MANAGENIUS</title>
+
+  <script src="https://unpkg.com/@studio-freight/lenis@latest/dist/lenis.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body, html {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #0a0a0a;
+      color: #f3f4f6;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      z-index: 1000;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    .navbar.navbar-hidden {
+      transform: translateY(-120%);
+    }
+
+    .navbar .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .navbar .logo img {
+      margin-top: 90px;
+      height: 140px;
+      width: auto;
+      transition: opacity 0.3s ease, height 0.4s ease, margin-top 0.4s ease;
+    }
+    
+    .navbar.navbar-hidden .logo img {
+      opacity: 0;
+      height: 0;
+      margin-top: 0;
+    }
+
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin-left: auto;
+    }
+
+    .navbar .nav-links li a {
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.2rem;
+      color: #e5e7eb;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-links li a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    .about-section {
+      max-width: 900px;
+      margin: 200px auto 100px;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .about-section h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #faeda2, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .about-section p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #d1d5db;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+
+    .about-section p.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+      padding: 3rem 2rem;
+      color: #aaa;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+      animation: pulse 6s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 0.3; }
+    }
+
+    .footer-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    footer h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #faeda2, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    footer p {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    footer .footer-links {
+      margin: 1rem 0;
+    }
+
+    footer .footer-links a {
+      color: #ffee90;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    footer .footer-links a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    }
+
+    footer .copyright {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    /* --- Responsive Design --- */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 1.5rem;
+        justify-content: center;
+      }
+      .navbar .logo img {
+        height: 120px;
+        margin-top: 80px;
+      }
+
+      .nav-links {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        width: 60%;
+        background: #0a0a0a;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+        border-left: 1px solid rgba(255,255,255,0.1);
+      }
+      .nav-links.nav-active {
+        transform: translateX(0%);
+      }
+
+      .hamburger {
+        display: block;
+        position: fixed;
+        right: 1.5rem;
+        top: 1.5rem;
+      }
+
+      .about-section {
+        margin-top: 150px;
+        margin-bottom: 80px;
+      }
+      .about-section h1 {
+        font-size: 2.5rem;
+      }
+      .about-section p {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about-section h1 {
+        font-size: 2rem;
+      }
+      .about-section p {
+        font-size: 1rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo"><img src="{% static 'logos/mg.png' %}" alt="MANAGENIUS Logo"></div>
+<ul class="nav-links">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About Us</a></li>
+      <li><a href="{% url 'team' %}">Team</a></li>
+      <li><a href="{% url 'events' %}">Events</a></li>
+      
+      {% if user.is_authenticated %}
+        <li><span style="color: #ffd700;">Hi, {{ user.first_name }}</span></li>
+        <li>
+             <form action="{% url 'account_logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="background:none; border:none; color:#e5e7eb; cursor:pointer;">Logout</button>
+             </form>
+        </li>
+      {% else %}
+        <li><a href="{% url 'account_login' %}">Login / Sign up</a></li>
+      {% endif %}
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <section class="about-section">
+    <h1>About Us</h1>
+    <p>
+      Welcome to <strong>MANAGENIUS</strong>, the official Management Club of IITM, where ideas meet execution and curiosity turns into creativity. 
+      We are more than just a student-run society — we are a vibrant hub of innovators, problem-solvers, and dreamers who believe that leadership is not a position, but a mindset. 
+      MANAGENIUS thrives on the belief that every student carries the spark of genius, and through the right platform, that spark can ignite into brilliance.
+    </p>
+    <p>
+      Our mission is to <em>bridge the gap between theory and practice</em> by providing opportunities that go beyond textbooks. 
+      From industry-led workshops and hands-on case studies, to national-level competitions and leadership challenges, 
+      the club is dedicated to shaping individuals who can navigate uncertainty, think critically, and drive positive change. 
+      We do not just teach management principles — we live them, practice them, and challenge them in real time.
+    </p>
+    <p>
+      At MANAGENIUS, collaboration is our strength and innovation is our language. 
+      Students work together across diverse disciplines, bringing unique perspectives to solve problems that matter. 
+      The club acts as a sandbox for experimentation — a safe space where ambitious ideas can be tested, refined, and launched into action. 
+      Whether you aspire to be a CEO, an entrepreneur, a strategist, or a changemaker, this is where you can <strong>learn, lead, and leave a legacy</strong>.
+    </p>
+    <p>
+      But what truly sets MANAGENIUS apart is its culture. We believe in empowering students with not only knowledge, 
+      but also the confidence and emotional intelligence to lead people, manage crises, and inspire movements. 
+      Our vision is simple yet profound: to nurture a generation of leaders who are as <em>empathetic as they are ambitious, 
+      as creative as they are analytical, and as grounded as they are visionary.</em>
+    </p>
+    <p>
+      If you are passionate about exploring the world of management, curious about leadership, or simply eager to discover your potential — 
+      MANAGENIUS is the place where your journey begins. Together, let us build not just successful careers, but also meaningful futures.
+    </p>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <h3>MANAGENIUS</h3>
+      <p>Management Club of IITM — Inspiring Leaders, Innovating Futures</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a> | 
+        <a href="team.html">Team</a> | 
+        <a href="events.html">Events</a>
+      </div>
+      <p class="copyright">&copy; 2025 MANAGENIUS. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- Lenis Smooth Scroll ---
+    const lenis = new Lenis({
+      lerp: 0.1,
+      wheelMultiplier: 1.2,
+      smoothWheel: true
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // --- Paragraph Animation on Scroll ---
+    const paragraphs = document.querySelectorAll(".about-section p");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    paragraphs.forEach(p => observer.observe(p));
+
+
+    // --- Navbar hide/show on scroll ---
+    const nav = document.querySelector('.navbar');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      if (lastScrollY < window.scrollY && window.scrollY > 150) {
+        nav.classList.add('navbar-hidden');
+      } else {
+        nav.classList.remove('navbar-hidden');
+      }
+      lastScrollY = window.scrollY;
+    });
+    
+    // --- Hamburger Menu Toggle ---
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+    });
+
+  </script>
+</body>
+</html>

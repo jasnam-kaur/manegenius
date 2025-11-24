@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Think or Sink</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/@studio-freight/lenis"></script>
+
+  <style>
+    /* Smooth scrolling setup */
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    .lenis.lenis-smooth iframe {
+      pointer-events: none;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Righteous", cursive;
+      /* CHANGED: Django Static Tag */
+      background: url("{% static 'src/thinksink.png' %}") no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      color: white;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .navbar {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 1.2rem 1rem;
+      min-height: 80px;
+    }
+
+    .navbar-brand {
+      font-family: "Righteous", sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: white !important;
+      line-height: 1;
+    }
+
+    .nav-link {
+      color: white !important;
+      font-size: 20px;
+      transition: 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: gold !important;
+    }
+
+    .register-btn {
+      background: linear-gradient(135deg, rgb(50, 50, 50), rgb(0, 0, 0));
+      color: white !important;
+      padding: 8px 14px;
+      font-size: 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: 0.2s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      text-decoration: none;
+    }
+
+    .register-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.5);
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      text-shadow: 0px 4px 20px rgba(255, 246, 117, 0.836);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero p {
+      font-size: 2.5rem;
+      margin-top: 1rem;
+      max-width: 900px;
+      text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(12px) saturate(150%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .prize-image img {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .hero p {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="lenis lenis-smooth">
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">Think or Sink</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        style="border: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-list"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </svg>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'select' %}">Other Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="register-btn ms-3" href="{% url 'thinksink_register' %}">Register Now!</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero container" data-aos="fade-up">
+    <h1>Welcome to Think or Sink</h1>
+    <p>Dive into the depths of innovation and bring your ideas to life!</p>
+  </section>
+
+  <div class="container">
+    <div class="glass-panel my-5" data-aos="fade-up">
+      <h2 style="font-size: 40px">Phase 1: Ideation</h2>
+      <p style="font-size: 22px">
+        Teams will be presented with a problem statement and must brainstorm innovative solutions.
+      </p>
+    </div>
+
+    <div class="glass-panel my-5" data-aos="fade-up">
+      <h2 style="font-size: 40px">Phase 2: Prototyping</h2>
+      <p style="font-size: 22px">
+        Develop a basic prototype or a detailed blueprint of your proposed solution.
+      </p>
+    </div>
+
+    <div class="glass-panel my-5" data-aos="fade-up">
+      <h2 style="font-size: 40px">Phase 3: The Pitch</h2>
+      <p style="font-size: 22px">
+        The top teams will present their ideas to a panel of judges. The most viable and creative idea wins!
+      </p>
+    </div>
+
+    <div class="glass-panel my-5" data-aos="zoom-in-up">
+      <h2 style="font-size: 40px">The Grand Prize Awaits...</h2>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+  </script>
+  <script>
+    const lenis = new Lenis({ smooth: true, lerp: 0.1 });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  </script>
+</body>
+
+</html>

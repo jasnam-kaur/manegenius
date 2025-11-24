@@ -1,0 +1,73 @@
+{% load static %}
+{% load account socialaccount %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | MANAGENIUS</title>
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  
+  <script src="https://unpkg.com/@studio-freight/lenis@latest/dist/lenis.min.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo"><img src="{% static 'logos/mg.png' %}" alt="MANAGENIUS Logo"></div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/events">Events</a></li>
+      <li><a href="{% url 'account_login' %}" style="color: #ffd700;">Login / Sign up</a></li>
+    </ul>
+    <div class="hamburger">
+      <div></div><div></div><div></div>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="login-container">
+      <h2>Student Login</h2>
+      
+      <a href="{% provider_login_url 'google' %}" class="google-btn">
+        <img src="{% static 'logos/google.jpeg' %}" alt="G" width="20" style="margin-right: 10px;">
+        Sign in with Google
+      </a>
+
+      <div class="divider"></div>
+
+      <form class="login-form" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        
+        <p>
+            <label for="id_login">Email:</label>
+            {{ form.login }}
+        </p>
+
+        <p>
+            <label for="id_password">Password:</label>
+            {{ form.password }}
+        </p>
+
+        {% if form.errors %}
+          <p style="color: #ff6b6b; font-size: 0.9rem; margin-top: 10px;">
+            The email or password you entered is incorrect.
+          </p>
+        {% endif %}
+
+        <button type="submit" class="btn-login">Login</button>
+      </form>
+      
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: #888;">
+        Don't have an account? <a href="{% url 'account_signup' %}" style="color: #ffd700;">Sign Up</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>
